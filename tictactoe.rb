@@ -41,7 +41,7 @@ class GameBoard
     display_hash = @hash_values.values
     display_hash.each_slice(@side_length).with_index do |line, i| #splits grid into appropriate measurements
       @print_letters = (ALPHABET[0]..ALPHABET[@side_length-1]).to_a
-      puts @print_letters[i] + " " + line.join(" | ") + " | \n" #extra stuff is for aligning grid lines
+      puts @print_letters[i].to_s + " " + line.join(" | ") + " | \n" #extra stuff is for aligning grid lines
       puts "-" + "---+"*numbers_array.length
     end
   end
@@ -157,7 +157,7 @@ class GameBoard
       end
 
       if symbols_in_a_row == 3 then
-
+        print_grid
         p "#{@current_player} wins diagonally!"
         return true
         symbols_in_a_row = 0
@@ -177,10 +177,9 @@ end
 
 p "please enter the length of the board you would like (eg: 3x3 would be 3)"
 length = gets.chomp.to_i
-until length.is_i? do
-  until length >
-  p "please enter an integer"
-  length = gets.chomp.to_i
-end
+  until length>0 do
+    p "please enter an integer"
+    length = gets.chomp.to_i
+  end
 game_board = GameBoard.new(length)
 game_board.play_game
